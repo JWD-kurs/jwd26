@@ -1,0 +1,94 @@
+<div ng-controller="knjigeCtrl">
+
+	<div ng-show="rezimDodavanja">
+		<button ng-click="rezimDodavanja = !rezimDodavanja" class="btn btn-primary pull-right">Pretraga</button>
+		<br />
+		<form>
+			<div class="form-group">
+				<label for="nazivNK">Naziv</label> <input
+					ng-model="novaKnjiga.naziv" type="text" class="form-control"
+					id="nazivNK">
+			</div>
+			<div class="form-group">
+				<label for="izdanjeNK">Izdanje</label> <input
+					ng-model="novaKnjiga.izdanje" type="text" class="form-control"
+					id="izdanjeNK">
+			</div>
+			<div class="form-group">
+				<label for="pisacNK">Pisac</label> <input
+					ng-model="novaKnjiga.pisac" type="text" class="form-control"
+					id="pisacNK">
+			</div>
+			<div class="form-group">
+				<label for="ISBNNK">ISBN</label> <input
+					ng-model="novaKnjiga.isbn" type="text" class="form-control"
+					id="ISBNNK">
+			</div>
+			<div class="form-group">
+				<label for="izdavacNK">Izdavač</label> <select
+					ng-model="novaKnjiga.izdavacId" class="form-control" id="izdavacNK">
+					<option ng-repeat="i in izdavaci" value="{{i.id}}">{{i.naziv}}</option>
+				</select>
+			</div>
+
+			<button ng-click="dodaj()" type="button" class="btn btn-primary">Dodaj</button>
+		</form>
+	</div>
+
+	<div ng-show="!rezimDodavanja">
+		<button ng-click="rezimDodavanja = !rezimDodavanja" class="btn btn-primary pull-right">Dodavanje</button>
+		<br />
+		<form>
+			<div class="form-group">
+				<label for="nazivTK">Naziv</label> <input
+					ng-model="trazenaKnjiga.naziv" type="text" class="form-control"
+					id="nazivTK">
+			</div>
+			<div class="form-group">
+				<label for="pisacTK">Pisac</label> <input
+					ng-model="trazenaKnjiga.pisac" type="text" class="form-control"
+					id="pisacTK">
+			</div>
+			<div class="form-group">
+				<label for="minGTK">Minimalno glasova</label> <input
+					ng-model="trazenaKnjiga.minGlasova" type="text" class="form-control"
+					id="minGTK">
+			</div>
+
+
+			<button ng-click="trazi()" type="button" class="btn btn-primary">Trazi</button>
+		</form>
+	</div>
+
+	<br /> <br /> <br />
+	<div class="btn-group pull-right">
+		<button class="btn btn-primary" ng-click="nazad()" ng-disabled="pageNum == 0">Prethodna</button>
+		<button class="btn btn-primary" ng-click="napred()" ng-disabled="pageNum == totalPages - 1">Sledeća</button>
+	</div>
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>Naziv</th>
+				<th>Izdanje</th>
+				<th>Pisac</th>
+				<th>Broj glasova</th>
+				<th>Naziv izdavača</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="k in knjige">
+				<td>{{k.naziv}}</td>
+				<td>{{k.izdanje}}</td>
+				<td>{{k.pisac}}</td>
+				<td>{{k.brojGlasova}}</td>
+				<td>{{k.izdavacNaziv}}</td>
+				<td>
+					<button ng-click="obrisi(k.id)" class="btn btn-danger">Obriši</button>
+					<button ng-click="izmeni(k.id)" class="btn btn-warning">Izmeni</button>
+					<button ng-click="glasaj(k.id)" class="btn btn-primary">+1</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<hr>
+</div>
